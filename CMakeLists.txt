@@ -29,7 +29,7 @@ project(${CMAKE_PROJECT_NAME})
 message("Build type: " ${CMAKE_BUILD_TYPE})
 
 # Enable CMake support for ASM and C languages
-enable_language(C ASM)
+enable_language(C CXX ASM)
 
 # Create an executable object type
 add_executable(${CMAKE_PROJECT_NAME})
@@ -45,11 +45,17 @@ target_link_directories(${CMAKE_PROJECT_NAME} PRIVATE
 # Add sources to executable
 target_sources(${CMAKE_PROJECT_NAME} PRIVATE
     # Add user sources here
+    ${PROJECT_SOURCE_DIR}/App/UartTask/Src/UartTask.cpp
+    ${PROJECT_SOURCE_DIR}/App/ServoTask/Src/ServoTask.cpp
+    ${PROJECT_SOURCE_DIR}/App/DistanceTask/Src/DistanceTask.cpp
 )
 
 # Add include paths
 target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE
     # Add user defined include paths
+    ${PROJECT_SOURCE_DIR}/App/UartTask/Inc
+    ${PROJECT_SOURCE_DIR}/App/ServoTask/Inc
+    ${PROJECT_SOURCE_DIR}/App/DistanceTask/Inc
 )
 
 # Add project symbols (macros)

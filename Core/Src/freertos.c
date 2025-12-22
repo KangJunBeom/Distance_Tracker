@@ -47,12 +47,33 @@
 /* USER CODE BEGIN Variables */
 
 /* USER CODE END Variables */
-/* Definitions for mainTask */
-osThreadId_t mainTaskHandle;
-const osThreadAttr_t mainTask_attributes = {
-  .name = "mainTask",
+/* Definitions for UartRxTask */
+osThreadId_t UartRxTaskHandle;
+const osThreadAttr_t UartRxTask_attributes = {
+  .name = "UartRxTask",
   .stack_size = 128 * 4,
   .priority = (osPriority_t) osPriorityNormal,
+};
+/* Definitions for UartTxTask */
+osThreadId_t UartTxTaskHandle;
+const osThreadAttr_t UartTxTask_attributes = {
+  .name = "UartTxTask",
+  .stack_size = 128 * 4,
+  .priority = (osPriority_t) osPriorityLow,
+};
+/* Definitions for ServoMotorTask */
+osThreadId_t ServoMotorTaskHandle;
+const osThreadAttr_t ServoMotorTask_attributes = {
+  .name = "ServoMotorTask",
+  .stack_size = 128 * 4,
+  .priority = (osPriority_t) osPriorityLow,
+};
+/* Definitions for DistanceSensorT */
+osThreadId_t DistanceSensorTHandle;
+const osThreadAttr_t DistanceSensorT_attributes = {
+  .name = "DistanceSensorT",
+  .stack_size = 128 * 4,
+  .priority = (osPriority_t) osPriorityLow,
 };
 
 /* Private function prototypes -----------------------------------------------*/
@@ -60,7 +81,10 @@ const osThreadAttr_t mainTask_attributes = {
 
 /* USER CODE END FunctionPrototypes */
 
-void mainTaskHandler(void *argument);
+void UartRxTaskHandler(void *argument);
+extern void UartTxTaskHandler(void *argument);
+extern void ServoMotorTaskHandler(void *argument);
+extern void DistanceSensorTaskHandler(void *argument);
 
 void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
 
@@ -91,8 +115,17 @@ void MX_FREERTOS_Init(void) {
   /* USER CODE END RTOS_QUEUES */
 
   /* Create the thread(s) */
-  /* creation of mainTask */
-  mainTaskHandle = osThreadNew(mainTaskHandler, NULL, &mainTask_attributes);
+  /* creation of UartRxTask */
+  UartRxTaskHandle = osThreadNew(UartRxTaskHandler, NULL, &UartRxTask_attributes);
+
+  /* creation of UartTxTask */
+  UartTxTaskHandle = osThreadNew(UartTxTaskHandler, NULL, &UartTxTask_attributes);
+
+  /* creation of ServoMotorTask */
+  ServoMotorTaskHandle = osThreadNew(ServoMotorTaskHandler, NULL, &ServoMotorTask_attributes);
+
+  /* creation of DistanceSensorT */
+  DistanceSensorTHandle = osThreadNew(DistanceSensorTaskHandler, NULL, &DistanceSensorT_attributes);
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
@@ -104,22 +137,22 @@ void MX_FREERTOS_Init(void) {
 
 }
 
-/* USER CODE BEGIN Header_mainTaskHandler */
+/* USER CODE BEGIN Header_UartRxTaskHandler */
 /**
-  * @brief  Function implementing the mainTask thread.
+  * @brief  Function implementing the UartRxTask thread.
   * @param  argument: Not used
   * @retval None
   */
-/* USER CODE END Header_mainTaskHandler */
-__weak void mainTaskHandler(void *argument)
+/* USER CODE END Header_UartRxTaskHandler */
+__weak void UartRxTaskHandler(void *argument)
 {
-  /* USER CODE BEGIN mainTaskHandler */
+  /* USER CODE BEGIN UartRxTaskHandler */
   /* Infinite loop */
   for(;;)
   {
     osDelay(1);
   }
-  /* USER CODE END mainTaskHandler */
+  /* USER CODE END UartRxTaskHandler */
 }
 
 /* Private application code --------------------------------------------------*/
