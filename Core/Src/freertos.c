@@ -25,7 +25,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "UartTask.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -75,6 +75,26 @@ const osThreadAttr_t DistanceSensorT_attributes = {
   .stack_size = 128 * 4,
   .priority = (osPriority_t) osPriorityLow,
 };
+/* Definitions for UartRxQueue */
+osMessageQueueId_t UartRxQueueHandle;
+const osMessageQueueAttr_t UartRxQueue_attributes = {
+  .name = "UartRxQueue"
+};
+/* Definitions for ServoAngleQueue */
+osMessageQueueId_t ServoAngleQueueHandle;
+const osMessageQueueAttr_t ServoAngleQueue_attributes = {
+  .name = "ServoAngleQueue"
+};
+/* Definitions for DistanceQueue */
+osMessageQueueId_t DistanceQueueHandle;
+const osMessageQueueAttr_t DistanceQueue_attributes = {
+  .name = "DistanceQueue"
+};
+/* Definitions for UartTxQueue */
+osMessageQueueId_t UartTxQueueHandle;
+const osMessageQueueAttr_t UartTxQueue_attributes = {
+  .name = "UartTxQueue"
+};
 
 /* Private function prototypes -----------------------------------------------*/
 /* USER CODE BEGIN FunctionPrototypes */
@@ -109,6 +129,19 @@ void MX_FREERTOS_Init(void) {
   /* USER CODE BEGIN RTOS_TIMERS */
   /* start timers, add new ones, ... */
   /* USER CODE END RTOS_TIMERS */
+
+  /* Create the queue(s) */
+  /* creation of UartRxQueue */
+  UartRxQueueHandle = osMessageQueueNew (8, sizeof(Command), &UartRxQueue_attributes);
+
+  /* creation of ServoAngleQueue */
+  ServoAngleQueueHandle = osMessageQueueNew (8, sizeof(uint16_t), &ServoAngleQueue_attributes);
+
+  /* creation of DistanceQueue */
+  DistanceQueueHandle = osMessageQueueNew (8, sizeof(uint8_t), &DistanceQueue_attributes);
+
+  /* creation of UartTxQueue */
+  UartTxQueueHandle = osMessageQueueNew (8, sizeof(Command), &UartTxQueue_attributes);
 
   /* USER CODE BEGIN RTOS_QUEUES */
   /* add queues, ... */
