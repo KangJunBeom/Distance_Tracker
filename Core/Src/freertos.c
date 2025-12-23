@@ -85,10 +85,10 @@ osMessageQueueId_t ServoAngleQueueHandle;
 const osMessageQueueAttr_t ServoAngleQueue_attributes = {
   .name = "ServoAngleQueue"
 };
-/* Definitions for DistanceQueue */
-osMessageQueueId_t DistanceQueueHandle;
-const osMessageQueueAttr_t DistanceQueue_attributes = {
-  .name = "DistanceQueue"
+/* Definitions for DistanceStartQueue */
+osMessageQueueId_t DistanceStartQueueHandle;
+const osMessageQueueAttr_t DistanceStartQueue_attributes = {
+  .name = "DistanceStartQueue"
 };
 /* Definitions for UartTxQueue */
 osMessageQueueId_t UartTxQueueHandle;
@@ -137,8 +137,8 @@ void MX_FREERTOS_Init(void) {
   /* creation of ServoAngleQueue */
   ServoAngleQueueHandle = osMessageQueueNew (8, sizeof(uint16_t), &ServoAngleQueue_attributes);
 
-  /* creation of DistanceQueue */
-  DistanceQueueHandle = osMessageQueueNew (8, sizeof(uint8_t), &DistanceQueue_attributes);
+  /* creation of DistanceStartQueue */
+  DistanceStartQueueHandle = osMessageQueueNew (8, sizeof(uint8_t), &DistanceStartQueue_attributes);
 
   /* creation of UartTxQueue */
   UartTxQueueHandle = osMessageQueueNew (8, sizeof(Command), &UartTxQueue_attributes);
