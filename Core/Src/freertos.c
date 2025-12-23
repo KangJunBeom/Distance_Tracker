@@ -68,10 +68,10 @@ const osThreadAttr_t ServoMotorTask_attributes = {
   .stack_size = 128 * 4,
   .priority = (osPriority_t) osPriorityLow,
 };
-/* Definitions for DistanceSensorT */
-osThreadId_t DistanceSensorTHandle;
-const osThreadAttr_t DistanceSensorT_attributes = {
-  .name = "DistanceSensorT",
+/* Definitions for DistanceSensorTask */
+osThreadId_t DistanceSensorTaskHandle;
+const osThreadAttr_t DistanceSensorTask_attributes = {
+  .name = "DistanceSensorTask",
   .stack_size = 128 * 4,
   .priority = (osPriority_t) osPriorityLow,
 };
@@ -157,8 +157,8 @@ void MX_FREERTOS_Init(void) {
   /* creation of ServoMotorTask */
   ServoMotorTaskHandle = osThreadNew(ServoMotorTaskHandler, NULL, &ServoMotorTask_attributes);
 
-  /* creation of DistanceSensorT */
-  DistanceSensorTHandle = osThreadNew(DistanceSensorTaskHandler, NULL, &DistanceSensorT_attributes);
+  /* creation of DistanceSensorTask */
+  DistanceSensorTaskHandle = osThreadNew(DistanceSensorTaskHandler, NULL, &DistanceSensorTask_attributes);
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
