@@ -1,0 +1,31 @@
+# EditorConfig is awesome: https://EditorConfig.org
+
+# top-most EditorConfig file
+root = true
+
+[*]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+# C / Header files (STM32 HAL style)
+[*.{c,cpp,h}]
+indent_style = space
+indent_size = 2
+tab_width = 2
+
+# Assembly files (optional)
+[*.s]
+indent_style = space
+indent_size = 2
+
+# Linker script (optional)
+[*.ld]
+indent_style = space
+indent_size = 2
+
+# Python files
+[*.py]
+indent_style = space
+indent_size = 4
