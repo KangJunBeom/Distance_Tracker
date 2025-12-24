@@ -19,7 +19,7 @@ void ServoMotorTaskHandler(void *argument){
     for(;;)
     {   
         
-        if(osMessageQueueGet(ServoAngleQueueHandle, &angle, NULL, 0) == osOK) {
+        if(osMessageQueueGet(ServoAngleQueueHandle, &angle, NULL, osWaitForever) == osOK) {
             
             if(angle < 0) angle = 0;
             if(angle > 180) angle = 180;
