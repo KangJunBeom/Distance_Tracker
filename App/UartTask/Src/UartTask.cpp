@@ -41,9 +41,14 @@ void UartRxTaskHandler(void *argument){
 
 extern "C"
 void UartTxTaskHandler(void *argument){
+  double distance;
+  uint8_t msg[32] = "";
   for(;;)
   {
-    osDelay(1);
+    if(osMessageQueueGet(UartTxQueueHandle, &distance,NULL,osWaitForever) == osOK){
+      sprintf((char *)msg,"%lf\n",distance);
+      HAL_UART_Transmit(&huart2,msg,strlen((char*)msg),10);
+    }
   }
 }
 
