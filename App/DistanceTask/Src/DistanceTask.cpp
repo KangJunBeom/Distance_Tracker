@@ -32,6 +32,7 @@ void DistanceSensorTaskHandler(void *argument){
 }
 
 //start measuring distance
+extern "C"
 void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim)
 {
   if(htim->Instance == TIM3 && htim->Channel == HAL_TIM_ACTIVE_CHANNEL_1) {
@@ -52,10 +53,10 @@ void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim)
       Rising_flag = 1;
 
       //calculate distance
-      if (end_time > start_time) {
+      if (end_time >= start_time) {
         Distance = (double)(end_time - start_time) / 58;
       } else {
-        Distance = (double)((65535 - end_time) + start_time) / 58;
+        Distance = (double)((65535 - start_time) + end_time) / 58;
       }
       
       osMessageQueuePut(UartTxQueueHandle, &Distance, 0, 0);
