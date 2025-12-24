@@ -8,7 +8,7 @@ extern osMessageQueueId_t DistanceStartQueueHandle;
 extern osMessageQueueId_t UartTxQueueHandle;
 
 uint16_t RISING_FLAG = 1;
-uint32_t DISTANCE = 0;
+uint8_t DISTANCE = 0;
 uint32_t start_time = 0;
 uint32_t end_time = 0;
 
