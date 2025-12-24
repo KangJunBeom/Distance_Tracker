@@ -15,7 +15,9 @@
 #include "UartTask.h"
 #include "FreeRTOS.h"
 #include "cmsis_os.h"
+#include "stm32f103xb.h"
 #include "stm32f1xx_hal_uart.h"
+#include "usart.h"
 #include <stdint.h>
 #include <stdio.h>
 #include <string.h>
@@ -25,9 +27,11 @@
 extern osMessageQueueId_t UartRxQueueHandle;
 extern osMessageQueueId_t UartTxQueueHandle;
 extern osMessageQueueId_t ServoAngleQueueHandle;
+uint8_t rxBuffer[RX_BUFFER_SIZE];
 
 extern "C"
 void UartRxTaskHandler(void *argument){
+  HAL_UARTEx_ReceiveToIdle_DMA(&huart2, rxBuffer, RX_BUFFER_SIZE);
   for(;;)
   {
     process_incoming_servo_data();
@@ -140,7 +144,6 @@ bool process_incoming_servo_data(void) {
   return false;
 }
 
-uint8_t rxBuffer[RX_BUFFER_SIZE];
 uint16_t lastPos;
 
 /*
