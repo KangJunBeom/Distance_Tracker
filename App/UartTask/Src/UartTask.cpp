@@ -15,6 +15,7 @@
 #include "UartTask.h"
 #include "FreeRTOS.h"
 #include "cmsis_os.h"
+#include "stm32f1xx_hal_uart.h"
 #include <stdint.h>
 #include <stdio.h>
 #include <string.h>
@@ -40,6 +41,13 @@ void UartTxTaskHandler(void *argument){
   {
     osDelay(1);
   }
+}
+
+
+extern "C"
+void HAL_UARTEx_RxEventCallback(UART_HandleTypeDef *huart, uint16_t Size)
+{
+    Handle_UART_Receive_IDLE(huart, Size);
 }
 
 /*
