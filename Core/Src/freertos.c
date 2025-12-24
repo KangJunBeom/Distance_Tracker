@@ -51,28 +51,28 @@
 osThreadId_t UartRxTaskHandle;
 const osThreadAttr_t UartRxTask_attributes = {
   .name = "UartRxTask",
-  .stack_size = 128 * 4,
+  .stack_size = 256 * 4,
   .priority = (osPriority_t) osPriorityNormal,
 };
 /* Definitions for UartTxTask */
 osThreadId_t UartTxTaskHandle;
 const osThreadAttr_t UartTxTask_attributes = {
   .name = "UartTxTask",
-  .stack_size = 128 * 4,
+  .stack_size = 256 * 4,
   .priority = (osPriority_t) osPriorityLow,
 };
 /* Definitions for ServoMotorTask */
 osThreadId_t ServoMotorTaskHandle;
 const osThreadAttr_t ServoMotorTask_attributes = {
   .name = "ServoMotorTask",
-  .stack_size = 128 * 4,
+  .stack_size = 256 * 4,
   .priority = (osPriority_t) osPriorityLow,
 };
 /* Definitions for DistanceSensorTask */
 osThreadId_t DistanceSensorTaskHandle;
 const osThreadAttr_t DistanceSensorTask_attributes = {
   .name = "DistanceSensorTask",
-  .stack_size = 128 * 4,
+  .stack_size = 256 * 4,
   .priority = (osPriority_t) osPriorityLow,
 };
 /* Definitions for UartRxQueue */
