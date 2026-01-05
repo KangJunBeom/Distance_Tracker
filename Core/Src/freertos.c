@@ -25,7 +25,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "UartTask.h"
+
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -47,53 +47,17 @@
 /* USER CODE BEGIN Variables */
 
 /* USER CODE END Variables */
-/* Definitions for UartRxTask */
-osThreadId_t UartRxTaskHandle;
-const osThreadAttr_t UartRxTask_attributes = {
-  .name = "UartRxTask",
+/* Definitions for MainTask */
+osThreadId_t MainTaskHandle;
+const osThreadAttr_t MainTask_attributes = {
+  .name = "MainTask",
   .stack_size = 256 * 4,
   .priority = (osPriority_t) osPriorityNormal,
 };
-/* Definitions for UartTxTask */
-osThreadId_t UartTxTaskHandle;
-const osThreadAttr_t UartTxTask_attributes = {
-  .name = "UartTxTask",
-  .stack_size = 256 * 4,
-  .priority = (osPriority_t) osPriorityLow,
-};
-/* Definitions for ServoMotorTask */
-osThreadId_t ServoMotorTaskHandle;
-const osThreadAttr_t ServoMotorTask_attributes = {
-  .name = "ServoMotorTask",
-  .stack_size = 256 * 4,
-  .priority = (osPriority_t) osPriorityLow,
-};
-/* Definitions for DistanceSensorTask */
-osThreadId_t DistanceSensorTaskHandle;
-const osThreadAttr_t DistanceSensorTask_attributes = {
-  .name = "DistanceSensorTask",
-  .stack_size = 256 * 4,
-  .priority = (osPriority_t) osPriorityLow,
-};
-/* Definitions for UartRxQueue */
-osMessageQueueId_t UartRxQueueHandle;
-const osMessageQueueAttr_t UartRxQueue_attributes = {
-  .name = "UartRxQueue"
-};
-/* Definitions for ServoAngleQueue */
-osMessageQueueId_t ServoAngleQueueHandle;
-const osMessageQueueAttr_t ServoAngleQueue_attributes = {
-  .name = "ServoAngleQueue"
-};
-/* Definitions for DistanceStartQueue */
-osMessageQueueId_t DistanceStartQueueHandle;
-const osMessageQueueAttr_t DistanceStartQueue_attributes = {
-  .name = "DistanceStartQueue"
-};
-/* Definitions for UartTxQueue */
-osMessageQueueId_t UartTxQueueHandle;
-const osMessageQueueAttr_t UartTxQueue_attributes = {
-  .name = "UartTxQueue"
+/* Definitions for AngleQueue */
+osMessageQueueId_t AngleQueueHandle;
+const osMessageQueueAttr_t AngleQueue_attributes = {
+  .name = "AngleQueue"
 };
 
 /* Private function prototypes -----------------------------------------------*/
@@ -102,9 +66,6 @@ const osMessageQueueAttr_t UartTxQueue_attributes = {
 /* USER CODE END FunctionPrototypes */
 
 void UartRxTaskHandler(void *argument);
-extern void UartTxTaskHandler(void *argument);
-extern void ServoMotorTaskHandler(void *argument);
-extern void DistanceSensorTaskHandler(void *argument);
 
 void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
 
@@ -131,34 +92,16 @@ void MX_FREERTOS_Init(void) {
   /* USER CODE END RTOS_TIMERS */
 
   /* Create the queue(s) */
-  /* creation of UartRxQueue */
-  UartRxQueueHandle = osMessageQueueNew (8, sizeof(Command), &UartRxQueue_attributes);
-
-  /* creation of ServoAngleQueue */
-  ServoAngleQueueHandle = osMessageQueueNew (8, sizeof(uint16_t), &ServoAngleQueue_attributes);
-
-  /* creation of DistanceStartQueue */
-  DistanceStartQueueHandle = osMessageQueueNew (8, sizeof(uint8_t), &DistanceStartQueue_attributes);
-
-  /* creation of UartTxQueue */
-  UartTxQueueHandle = osMessageQueueNew (8, sizeof(double), &UartTxQueue_attributes);
+  /* creation of AngleQueue */
+  AngleQueueHandle = osMessageQueueNew (8, sizeof(uint32_t), &AngleQueue_attributes);
 
   /* USER CODE BEGIN RTOS_QUEUES */
   /* add queues, ... */
   /* USER CODE END RTOS_QUEUES */
 
   /* Create the thread(s) */
-  /* creation of UartRxTask */
-  UartRxTaskHandle = osThreadNew(UartRxTaskHandler, NULL, &UartRxTask_attributes);
-
-  /* creation of UartTxTask */
-  UartTxTaskHandle = osThreadNew(UartTxTaskHandler, NULL, &UartTxTask_attributes);
-
-  /* creation of ServoMotorTask */
-  ServoMotorTaskHandle = osThreadNew(ServoMotorTaskHandler, NULL, &ServoMotorTask_attributes);
-
-  /* creation of DistanceSensorTask */
-  DistanceSensorTaskHandle = osThreadNew(DistanceSensorTaskHandler, NULL, &DistanceSensorTask_attributes);
+  /* creation of MainTask */
+  MainTaskHandle = osThreadNew(UartRxTaskHandler, NULL, &MainTask_attributes);
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */

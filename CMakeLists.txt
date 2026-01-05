@@ -45,17 +45,21 @@ target_link_directories(${CMAKE_PROJECT_NAME} PRIVATE
 # Add sources to executable
 target_sources(${CMAKE_PROJECT_NAME} PRIVATE
     # Add user sources here
-    ${PROJECT_SOURCE_DIR}/App/UartTask/Src/UartTask.cpp
-    ${PROJECT_SOURCE_DIR}/App/ServoTask/Src/ServoTask.cpp
-    ${PROJECT_SOURCE_DIR}/App/DistanceTask/Src/DistanceTask.cpp
+    ${PROJECT_SOURCE_DIR}/App/Interrupt/ISR_callback.cpp
+    ${PROJECT_SOURCE_DIR}/App/Tasks/MainTask/Src/MainTask.cpp
+
+    # drivers
+    ${PROJECT_SOURCE_DIR}/Drivers/HC_SR04/Src/HC_SR04.cpp
+    ${PROJECT_SOURCE_DIR}/Drivers/SG90/Src/SG90.cpp
 )
 
 # Add include paths
 target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE
     # Add user defined include paths
-    ${PROJECT_SOURCE_DIR}/App/UartTask/Inc
-    ${PROJECT_SOURCE_DIR}/App/ServoTask/Inc
-    ${PROJECT_SOURCE_DIR}/App/DistanceTask/Inc
+    ${PROJECT_SOURCE_DIR}/App/Tasks/MainTask/Inc
+
+    ${PROJECT_SOURCE_DIR}/Drivers/HC_SR04/Inc
+    ${PROJECT_SOURCE_DIR}/Drivers/SG90/Inc
 )
 
 # Add project symbols (macros)
