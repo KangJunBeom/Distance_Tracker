@@ -1,5 +1,6 @@
-#ifndef __SR04_H__
-#define __SR04_H__
+#ifndef __SG90_H__
+#define __SG90_H__
+#include "stm32f1xx_hal.h"
 
 class SG90{
 public:
@@ -14,4 +15,4 @@ private:
     int _currentAngle;
 };
 
-#endif // __SR04_H__
+#endif // __SG90_H__
