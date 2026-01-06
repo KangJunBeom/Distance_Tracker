@@ -11,7 +11,7 @@ void HC_SR04::setTrigger() {
     _distance = -1;
 
     HAL_GPIO_WritePin(_triggerPort, _triggerPin, GPIO_PIN_SET);
-    for(volatile int i = 0; i < 100; i++);
+    HAL_Delay(1);
     HAL_GPIO_WritePin(_triggerPort, _triggerPin, GPIO_PIN_RESET);
 }
 
