@@ -65,7 +65,7 @@ const osMessageQueueAttr_t AngleQueue_attributes = {
 
 /* USER CODE END FunctionPrototypes */
 
-void UartRxTaskHandler(void *argument);
+void MainTaskHandler(void *argument);
 
 void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
 
@@ -93,7 +93,7 @@ void MX_FREERTOS_Init(void) {
 
   /* Create the queue(s) */
   /* creation of AngleQueue */
-  AngleQueueHandle = osMessageQueueNew (8, sizeof(uint32_t), &AngleQueue_attributes);
+  AngleQueueHandle = osMessageQueueNew (8, sizeof(uint16_t), &AngleQueue_attributes);
 
   /* USER CODE BEGIN RTOS_QUEUES */
   /* add queues, ... */
@@ -101,7 +101,7 @@ void MX_FREERTOS_Init(void) {
 
   /* Create the thread(s) */
   /* creation of MainTask */
-  MainTaskHandle = osThreadNew(UartRxTaskHandler, NULL, &MainTask_attributes);
+  MainTaskHandle = osThreadNew(MainTaskHandler, NULL, &MainTask_attributes);
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
@@ -113,22 +113,22 @@ void MX_FREERTOS_Init(void) {
 
 }
 
-/* USER CODE BEGIN Header_UartRxTaskHandler */
+/* USER CODE BEGIN Header_MainTaskHandler */
 /**
-  * @brief  Function implementing the UartRxTask thread.
+  * @brief  Function implementing the MainTask thread.
   * @param  argument: Not used
   * @retval None
   */
-/* USER CODE END Header_UartRxTaskHandler */
-__weak void UartRxTaskHandler(void *argument)
+/* USER CODE END Header_MainTaskHandler */
+__weak void MainTaskHandler(void *argument)
 {
-  /* USER CODE BEGIN UartRxTaskHandler */
+  /* USER CODE BEGIN MainTaskHandler */
   /* Infinite loop */
   for(;;)
   {
     osDelay(1);
   }
-  /* USER CODE END UartRxTaskHandler */
+  /* USER CODE END MainTaskHandler */
 }
 
 /* Private application code --------------------------------------------------*/

@@ -7,7 +7,7 @@ extern osMessageQueueId_t AngleQueueHandle;
 
 extern "C"
 void HAL_UARTEx_RxEventCallback(UART_HandleTypeDef *huart, uint16_t Size){
-  uint32_t angle {0};
+  uint16_t angle {0};
 
 
 
