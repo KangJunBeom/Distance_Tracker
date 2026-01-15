@@ -3,6 +3,8 @@
 #include <stdio.h>
 #include <string.h>
 
+#include "HC_SR04.h"
+
 #define DEBUG_UART
 #ifndef DEBUG_UART
 #define UART_STX 0x02
@@ -32,6 +34,8 @@ uint8_t rxBuffer[RX_BUFFER_SIZE];
 uint16_t lastPos;
 extern osMessageQueueId_t AngleQueueHandle;
 
+extern HC_SR04 distanceSensor;
+
 bool process_incoming_servo_data(Command *msg);
 void Handle_UART_Receive_IDLE(UART_HandleTypeDef *huart, uint16_t Size);
 int parse_servo_input(const buf_t *data, uint16_t *angle);
@@ -42,7 +46,9 @@ extern "C" void HAL_UARTEx_RxEventCallback(UART_HandleTypeDef *huart,
   Handle_UART_Receive_IDLE(huart, Size);
 }
 
-extern "C" void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim) {}
+extern "C" void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim) {
+  distanceSensor.Timer_IC_Handler();
+}
 
 /*
  * @author huigwang

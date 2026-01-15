@@ -3,7 +3,7 @@
 HC_SR04::HC_SR04(const TIM_HandleTypeDef* timer, const GPIO_TypeDef* port, const uint16_t pin)
     : _htim(const_cast<TIM_HandleTypeDef*>(timer)), _triggerPort(const_cast<GPIO_TypeDef*>(port)), _triggerPin(pin) {
 
-    HAL_TIM_IC_Start_IT(_htim, TIM_CHANNEL_1);
+    // HAL_TIM_IC_Start_IT(_htim, TIM_CHANNEL_1);
 }
 
 void HC_SR04::setTrigger() {
@@ -15,7 +15,7 @@ void HC_SR04::setTrigger() {
     HAL_GPIO_WritePin(_triggerPort, _triggerPin, GPIO_PIN_RESET);
 }
 
-bool HC_SR04::isDone() const {
+volatile bool HC_SR04::isDone() const {
     return _isDone;
 }
 
