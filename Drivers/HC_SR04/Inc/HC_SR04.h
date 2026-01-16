@@ -11,14 +11,14 @@ private:
   GPIO_TypeDef* const _triggerPort;
   const uint16_t _triggerPin;
 
-  bool _isDone = false;
-  int32_t _distance = -1;
+  volatile bool _isDone = false;
+  volatile int32_t _distance = -1;
 
 public:
   HC_SR04(const TIM_HandleTypeDef* timer,const GPIO_TypeDef* port,const uint16_t pin);
 
   void setTrigger();
-  bool isDone() const;
+  volatile bool isDone() const;
   int32_t getDistance() const;
 
   void Timer_IC_Handler();
